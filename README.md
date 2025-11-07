@@ -1,5 +1,3 @@
-# IOZ_HPCTraining
-
 # IOZ HPC Training for Students: Using Our DGX / Run:AI Platform
 
 **Dates:** 11–12 November 2025  
@@ -33,6 +31,12 @@ By the end of the workshop, you will be able to:
 
 ---
 
+### Directory structure
+
+
+
+---
+
 ## Agenda Summary
 
 ### **Day 1 – Core HPC Skills**
@@ -63,10 +67,6 @@ By the end of the workshop, you will be able to:
 | **1. Parallel Data Processing Challenge** | Optimise an ecological data aggregation task using parallel computing. | R (`future.apply`) or Python (`multiprocessing`) |
 | **2. GPU Image Pipeline Challenge** | Modify or retrain a small CNN on a new image set and benchmark performance. | TensorFlow / PyTorch |
 | **3. SDM + LLM Integration Challenge** | Build a species distribution model, then use an LLM to summarise or interpret outputs. | R (`biomod2`, `terra`, `ollamar`) |
-
----
-
-### Directory structure
 
 
 ---
