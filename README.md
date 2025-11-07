@@ -31,8 +31,23 @@ By the end of the workshop, you will be able to:
 
 ---
 
-### Directory structure
+## Repository Structure
 
+All session materials are contained in this repository, organised by topic.  
+Each folder includes its own `data/` directory and a `script.R` (or equivalent Jupyter notebook) for you to work through.
+
+Session_1_Parallel_Computing_CPU
+|--data
+|--script.R
+Session_2_GPU_Workflows_Image_Analysis
+|--data
+|--script.R
+Session_3_Species_Distribution_Modelling
+|--data
+|--script.R
+Session_4_Large_Language_Models
+|--data
+|--script.R
 
 
 ---
