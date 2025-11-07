@@ -36,6 +36,7 @@ By the end of the workshop, you will be able to:
 All session materials are contained in this repository, organised by topic.  
 Each folder includes its own `data/` directory and a `script.R` (or equivalent Jupyter notebook) for you to work through.
 
+'''
 Session_1_Parallel_Computing_CPU
 |--data
 |--script.R
@@ -48,6 +49,7 @@ Session_3_Species_Distribution_Modelling
 Session_4_Large_Language_Models
 |--data
 |--script.R
+'''
 
 
 ---
