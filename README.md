@@ -1,6 +1,6 @@
 # IOZ_HPCTraining
 
-# 🧠 IOZ HPC Training for Students: Using Our DGX / Run:AI Platform
+# IOZ HPC Training for Students: Using Our DGX / Run:AI Platform
 
 **Dates:** 11–12 November 2025  
 **Trainers:** Robin Freeman & Ben Evans  
@@ -9,7 +9,7 @@
 
 ---
 
-## 📋 Overview
+## Overview
 
 This workshop introduces students to the **ZSL High-Performance Computing (HPC) facility**, 
 
@@ -19,7 +19,7 @@ The course combines short lectures with guided hands-on exercises in R and Pytho
 
 ---
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of the workshop, you will be able to:
 
@@ -33,7 +33,7 @@ By the end of the workshop, you will be able to:
 
 ---
 
-## 🗓️ Agenda Summary
+## Agenda Summary
 
 ### **Day 1 – Core HPC Skills**
 
