@@ -40,6 +40,10 @@ Each folder includes its own `data/` directory and a `script.R` (or equivalent J
 Session_1_Parallel_Computing_CPU
 |--data
 |--script.R
+|--script_b.R
+|--script_parallel.R
+|--script_doparallel.R
+|--script_future-apply.R
 Session_2_GPU_Workflows_Image_Analysis
 |--data
 |--script.R
