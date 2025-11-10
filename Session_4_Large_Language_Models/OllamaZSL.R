@@ -18,19 +18,22 @@ library(ollamar)
 #host <- "http://127.0.0.1:11434"
 
 # on HPC:
-host <- "http://ollama.runai-shared.svc.cluster.local"
+#host <- "http://ollama.runai-shared.svc.cluster.local"
+
+# on HPC (for this training session)
+host <- "http://ollama-training.runai-shared.svc.cluster.local"
+
 
 test_connection(url=host)  # test connection to Ollama server
 # if you see "Ollama local server not running or wrong server," Ollama app/server isn't running
 
 # download a model
-pull("gemma3", host=host)  # download a model.
-
-# See what models exists
-list_models(host = host)
+pull("gemma3:4b", host=host, stream = TRUE)  # download a model.
 
 # generate a response/text based on a prompt; returns an httr2 response by default
-resp <- generate("gemma3", "tell me a 5-word story", host=host)
+# the generate function you can think of as autocomplete, given some text it will
+# continue to predict token by token and return the end result.
+resp <- generate("gemma3:4b", "tell me a 5-word story", host=host)
 resp
 
 #' interpret httr2 response object
@@ -46,13 +49,13 @@ resp_process(resp, "text")
 resp_process(resp, "df")
 
 # alternatively, specify the output type when calling the function initially
-txt <- generate("gemma3", "tell me a 5-word story", output = "text", host= host)
+txt <- generate("gemma3:4b", "tell me a 5-word story", output = "text", host= host)
 
 # list available models (models already pulled/downloaded)
 list_models(host=host)
 #name    size parameter_size quantization_level            modified
-#1               codegemma:7b    5 GB             9B               Q4_0 2024-07-27T23:44:10
-#2            llama3.1:latest  4.7 GB           8.0B               Q4_0 2024-07-31T07:44:33
+#1  gemma3:12b  8.1 GB          12.2B             Q4_K_M 2025-11-10T22:20:54
+#2   gemma3:4b  3.3 GB           4.3B             Q4_K_M 2025-11-10T22:21:30
 
 #
 # Stuctured Outputs
@@ -62,6 +65,7 @@ list_models(host=host)
 # parsed. This is particularly useful in extracting information from free-text
 # inputs.
 
+# First we define the structure we want the LLM to respond with.
 format <- list(
   type = "object",
   properties = list(
@@ -73,7 +77,8 @@ format <- list(
   required = list("city", "country", "language", "currency")
 )
 
-generate("gemma3", "tell me about London", output = "structured", format = format, host=host)
+# Then call it specifying the model, prompt and structure
+generate("gemma3:4b", "tell me about London", output = "structured", format = format, host=host)
 
 
 # Let's give it a go, extracting information from an export of ZSL's Wikipedia page.
@@ -82,19 +87,30 @@ generate("gemma3", "tell me about London", output = "structured", format = forma
 # Bonus points, try extracting the contents of a paper and see if you can get the LLM
 # to identify which species are mentioned in it
 #
-text <- readChar("data/zsl_wiki.md", file.info("data/zsl_wiki.md")$size)
+text <- readChar("zsl_wiki.md", file.info("zsl_wiki.md")$size)
 text
 
-
+# This time we'll use a chat concept, instead of 'generate', we'll use a chat
+# endpoint which forces the model into a chat like template.
+#
+# There are three types of messages we can generally use:
+#
+# system: messages that guide how the model should respond. e.g. pretend to be a character or specify tone
+# user: chat messages a user has written
+# assistant: previous chat messages the LLM has written
+#
+# So let's create a message thread...
 messages <- create_messages(
   create_message("You are a friendly ZSL historian, use the information provided to respond to users questions", role="system"),
   create_message(paste("Content: ", text), role="system"),
   create_message("What year was ZSL formed?")
 )
 
+
+# We then call the model using chat() and print out the response with cat().
 cat(
   chat(
-    "gemma3", messages, output = "text", host = host
+    "gemma3:4b", messages, output = "text", host = host
   )
 )
 
@@ -111,6 +127,19 @@ format <- list(
 
 
 response <-  chat(
-    "gemma3", messages, output = "structured", host = host, format = format
+  "gemma3:4b", messages, output = "structured", host = host, format = format
 )
 response
+
+
+# You might find that the model hallucinates (making things up or generally
+# responding with the wrong information), particularly problematic with smaller
+# models, try with larger model:
+
+pull("gemma3:12b", host=host, stream = TRUE)  # download a model.
+
+response <-  chat(
+  "gemma3:12b", messages, output = "structured", host = host, format = format
+)
+response
+
