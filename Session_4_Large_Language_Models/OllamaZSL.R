@@ -87,7 +87,7 @@ generate("gemma3:4b", "tell me about London", output = "structured", format = fo
 # Bonus points, try extracting the contents of a paper and see if you can get the LLM
 # to identify which species are mentioned in it
 #
-text <- readChar("zsl_wiki.md", file.info("zsl_wiki.md")$size)
+text <- readChar("data/zsl_wiki.md", file.info("data/zsl_wiki.md")$size)
 text
 
 # This time we'll use a chat concept, instead of 'generate', we'll use a chat
